@@ -7,6 +7,9 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   plugins: [require("daisyui")],
-  themes: ["retro"],
+  daisyUI: {
+    themes: ["light", "retro"],
+    darkTheme: "light",
+  },
 };
 export default config;

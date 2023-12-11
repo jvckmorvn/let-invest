@@ -10,7 +10,6 @@ export default function Home() {
           <PropertyCard key={property} />
         ))}
       </div>
-      <Form />
     </main>
   );
 }

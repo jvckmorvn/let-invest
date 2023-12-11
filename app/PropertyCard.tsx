@@ -1,11 +1,10 @@
+import ImageCarousel from "./ImageCarousel";
+
 export default function PropertyCard() {
   return (
     <div className="card w-96 bg-base-100 shadow-md">
       <figure>
-        <img
-          src="https://lid.zoocdn.com/u/2400/1800/31d304c92f5999b36071ef88bd92a31e30e6119a.jpg:p"
-          alt="Property"
-        />
+        <ImageCarousel />
       </figure>
       <div className="card-body">
         <h2 className="card-title">
