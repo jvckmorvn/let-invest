@@ -1,4 +1,3 @@
-import Form from "./Form";
 import PropertyCard from "./PropertyCard";
 
 export default function Home() {

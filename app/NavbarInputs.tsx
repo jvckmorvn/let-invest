@@ -3,11 +3,14 @@ export default function NavbarInputs() {
     <>
       <ul className="menu menu-horizontal px-1">
         <li>
-          <summary>Interest</summary>
+          <label htmlFor="interest" className="label">
+            <summary>Interest</summary>
+          </label>
           <input
             type="range"
+            id="interest"
             min="0"
-            max="10"
+            max="8"
             className="range range-sm"
             step="1"
           />
@@ -17,10 +20,22 @@ export default function NavbarInputs() {
             <summary>City</summary>
             <ul className="p-2">
               <li>
-                <a>London</a>
+                <label className="form-control justify-between cursor-pointer">
+                  <span className="label-text">London</span>
+                  <input type="checkbox" className="checkbox checkbox-xs" />
+                </label>
               </li>
               <li>
-                <a>Belfast</a>
+                <label className="form-control justify-between cursor-pointer">
+                  <span className="label-text">Belfast</span>
+                  <input type="checkbox" className="checkbox checkbox-xs" />
+                </label>
+              </li>
+              <li>
+                <label className="form-control justify-between cursor-pointer">
+                  <span className="label-text">Manchester</span>
+                  <input type="checkbox" className="checkbox checkbox-xs" />
+                </label>
               </li>
             </ul>
           </details>
