@@ -1,14 +1,87 @@
+"use client";
+
+import { useState } from "react";
+import { useFilteredProperties } from "./Providers";
+import useProperties from "@/hooks/useProperties";
+
+type PriceRange = {
+  label: string;
+  min: number;
+  max: number;
+};
+
 export default function NavbarInputs() {
-  const priceRanges = [
-    "Less than £100,000",
-    "£100,000 - 199,999",
-    "£200,000 - 299,999",
-    "£300,000 - 399,999",
-    "£400,000 - 499,999",
-    "£500,000+",
+  const priceRanges: PriceRange[] = [
+    { label: "Less than £100,000", min: 0, max: 99_999 },
+    { label: "£100,000 - 199,999", min: 100_000, max: 199_999 },
+    { label: "£200,000 - 299,999", min: 200_000, max: 299_999 },
+    { label: "£300,000 - 399,999", min: 300_000, max: 399_999 },
+    { label: "£400,000 - 499,999", min: 400_000, max: 499_999 },
+    { label: "£500,000+", min: 500_000, max: 599_999 },
   ];
 
   const cities = ["Belfast", "London", "Manchester"];
+  const { setProperties } = useFilteredProperties();
+  const [checkedCities, setCheckedCities] = useState<string[]>([]);
+  const [checkedPriceRanges, setCheckedPriceRanges] = useState<PriceRange[]>(
+    []
+  );
+  const allProperties = useProperties();
+  const [defaultProperties] = useState(allProperties);
+
+  function handleCityChange(city: string) {
+    const selectedCities = toggleCheckbox(city, checkedCities);
+    setCheckedCities(selectedCities);
+
+    updateFilteredProperties(selectedCities, checkedPriceRanges);
+  }
+
+  function handlePriceChange(min: number, max: number, label: string) {
+    const selectedPriceRanges = togglePriceRange(label, checkedPriceRanges);
+    setCheckedPriceRanges(selectedPriceRanges);
+
+    updateFilteredProperties(checkedCities, selectedPriceRanges);
+  }
+
+  function toggleCheckbox(value: string, checkedValues: string[]) {
+    return checkedValues.includes(value)
+      ? checkedValues.filter((v) => v !== value)
+      : [...checkedValues, value];
+  }
+
+  function togglePriceRange(label: string, checkedRanges: PriceRange[]) {
+    const rangeIndex = checkedRanges.findIndex(
+      (range) => range.label === label
+    );
+    if (rangeIndex !== -1) {
+      const newRanges = [...checkedRanges];
+      newRanges.splice(rangeIndex, 1);
+      return newRanges;
+    } else {
+      const selectedRange = priceRanges.find((range) => range.label === label);
+      return selectedRange ? [...checkedRanges, selectedRange] : checkedRanges;
+    }
+  }
+
+  function updateFilteredProperties(
+    selectedCities: string[],
+    selectedPriceRanges: PriceRange[]
+  ) {
+    setProperties(() =>
+      selectedCities.length === 0 && selectedPriceRanges.length === 0
+        ? defaultProperties
+        : defaultProperties.filter(
+            (property) =>
+              (selectedCities.length === 0 ||
+                selectedCities.includes(property.city)) &&
+              (selectedPriceRanges.length === 0 ||
+                selectedPriceRanges.some(
+                  (range) =>
+                    property.price >= range.min && property.price <= range.max
+                ))
+          )
+    );
+  }
 
   return (
     <>
@@ -21,7 +94,11 @@ export default function NavbarInputs() {
                 <li key={index}>
                   <label className="form-control justify-between cursor-pointer">
                     <span className="label-text">{city}</span>
-                    <input type="checkbox" className="checkbox checkbox-xs" />
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-xs"
+                      onChange={() => handleCityChange(city)}
+                    />
                   </label>
                 </li>
               ))}
@@ -32,11 +109,15 @@ export default function NavbarInputs() {
           <details>
             <summary>Price</summary>
             <ul className="p-2">
-              {priceRanges.map((priceRange, index) => (
+              {priceRanges.map(({ label, min, max }, index) => (
                 <li key={index}>
                   <label className="form-control justify-between cursor-pointer">
-                    <span className="label-text">{priceRange}</span>
-                    <input type="checkbox" className="checkbox checkbox-xs" />
+                    <span className="label-text">{label}</span>
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-xs"
+                      onChange={() => handlePriceChange(min, max, label)}
+                    />
                   </label>
                 </li>
               ))}
