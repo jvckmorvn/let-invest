@@ -5,3 +5,9 @@ export type Property = {
   price: number;
   images: string[];
 };
+
+export type PriceRange = {
+  label: string;
+  min: number;
+  max: number;
+};

@@ -9,13 +9,16 @@ export function Providers({ children }: { children: ReactNode }) {
   const [properties, setProperties] = useState(defaultProperties);
 
   return (
-    <PropertiesContext.Provider value={{ properties, setProperties }}>
+    <PropertiesContext.Provider
+      value={{ defaultProperties, properties, setProperties }}
+    >
       {children}
     </PropertiesContext.Provider>
   );
 }
 
 type PropertiesContextType = {
+  defaultProperties: Property[];
   properties: Property[];
   setProperties: React.Dispatch<React.SetStateAction<Property[]>>;
 };

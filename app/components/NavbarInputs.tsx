@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { useFilteredProperties } from "./Providers";
-import useProperties from "@/hooks/useProperties";
-
-type PriceRange = {
-  label: string;
-  min: number;
-  max: number;
-};
+import { PriceRange } from "@/types";
 
 export default function NavbarInputs() {
   const priceRanges: PriceRange[] = [
@@ -19,15 +13,15 @@ export default function NavbarInputs() {
     { label: "£400,000 - 499,999", min: 400_000, max: 499_999 },
     { label: "£500,000+", min: 500_000, max: 599_999 },
   ];
-
   const cities = ["Belfast", "London", "Manchester"];
-  const { setProperties } = useFilteredProperties();
+
+  const { setProperties, defaultProperties } = useFilteredProperties();
+
   const [checkedCities, setCheckedCities] = useState<string[]>([]);
   const [checkedPriceRanges, setCheckedPriceRanges] = useState<PriceRange[]>(
     []
   );
-  const allProperties = useProperties();
-  const [defaultProperties] = useState(allProperties);
+  const [depositValue, setDepositValue] = useState<number>(1);
 
   function handleCityChange(city: string) {
     const selectedCities = toggleCheckbox(city, checkedCities);
@@ -36,7 +30,7 @@ export default function NavbarInputs() {
     updateFilteredProperties(selectedCities, checkedPriceRanges);
   }
 
-  function handlePriceChange(min: number, max: number, label: string) {
+  function handlePriceChange(label: string) {
     const selectedPriceRanges = togglePriceRange(label, checkedPriceRanges);
     setCheckedPriceRanges(selectedPriceRanges);
 
@@ -83,6 +77,10 @@ export default function NavbarInputs() {
     );
   }
 
+  // function handleDepositChange() {
+  //   updateFilteredProperties(checkedCities, checkedPriceRanges, depositValue);
+  // }
+
   return (
     <>
       <ul className="menu menu-horizontal px-1">
@@ -109,14 +107,14 @@ export default function NavbarInputs() {
           <details>
             <summary>Price</summary>
             <ul className="p-2">
-              {priceRanges.map(({ label, min, max }, index) => (
+              {priceRanges.map(({ label }, index) => (
                 <li key={index}>
                   <label className="form-control justify-between cursor-pointer">
                     <span className="label-text">{label}</span>
                     <input
                       type="checkbox"
                       className="checkbox checkbox-xs"
-                      onChange={() => handlePriceChange(min, max, label)}
+                      onChange={() => handlePriceChange(label)}
                     />
                   </label>
                 </li>
@@ -126,15 +124,16 @@ export default function NavbarInputs() {
         </li>
         <li>
           <label htmlFor="deposit" className="label">
-            <summary>Deposit</summary>
+            <summary>Deposit: {depositValue}%</summary>
           </label>
           <input
             type="range"
             id="deposit"
-            min="0"
-            max="3"
+            min="1"
+            max="30"
             className="range range-sm"
-            step="1"
+            value={depositValue}
+            onChange={(e) => setDepositValue(parseInt(e.target.value))}
           />
         </li>
       </ul>
