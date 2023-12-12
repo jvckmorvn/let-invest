@@ -10,6 +10,9 @@ export default function PropertyCard({
   price: number;
 }) {
   const formattedPrice = price.toLocaleString();
+  const averageRent = 2000;
+  const deposit = 0.1;
+  const timespan = Math.ceil((price * deposit) / averageRent);
 
   return (
     <div className="card w-96 bg-base-100 shadow-md">
@@ -18,8 +21,8 @@ export default function PropertyCard({
       </figure>
       <div className="card-body">
         <h2 className="card-title">
-          108 months
-          <div className="badge badge-secondary">NEW</div>
+          {timespan} months
+          {timespan < 18 && <div className="badge badge-secondary">QUICK</div>}
         </h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div className="card-actions justify-end">

@@ -65,6 +65,6 @@ const properties = [
   },
 ];
 
-export default function UseProperties() {
+export default function useProperties() {
   return properties;
 }
