@@ -3,13 +3,15 @@
 export default function ImageCarousel({ images }: { images: string[] }) {
   const carouselId = Math.random();
 
-  const handleNavigation = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavigation = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const targetId = event.currentTarget.getAttribute("href");
+
+    const targetId = event.currentTarget.getAttribute("data-target");
+
     if (targetId) {
-      const targetElement = document.getElementById(targetId.slice(1));
+      const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
+        targetElement.scrollIntoView({ block: "nearest", inline: "center" });
       }
     }
   };
@@ -23,23 +25,25 @@ export default function ImageCarousel({ images }: { images: string[] }) {
           className="carousel-item relative w-full"
         >
           <img src={image} alt={`Property ${index + 1}`} />
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <a
-              href={`#${carouselId}-${index === 0 ? images.length : index}`}
+          <div className="absolute flex justify-between transform -translate-y-1/2 left-3 right-3 top-1/2">
+            <button
+              data-target={`${carouselId}-${
+                index === 0 ? images.length : index
+              }`}
               className="btn btn-circle"
               onClick={handleNavigation}
             >
               ❮
-            </a>
-            <a
-              href={`#${carouselId}-${
+            </button>
+            <button
+              data-target={`${carouselId}-${
                 (index + 2) % images.length || images.length
               }`}
               className="btn btn-circle"
               onClick={handleNavigation}
             >
               ❯
-            </a>
+            </button>
           </div>
         </div>
       ))}
