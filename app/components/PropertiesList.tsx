@@ -7,7 +7,7 @@ export default function PropertiesList() {
   const { properties } = useFilteredProperties();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
       {properties.map(({ id, images, city, price }) => (
         <PropertyCard key={id} images={images} city={city} price={price} />
       ))}

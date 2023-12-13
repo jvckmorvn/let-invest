@@ -1,4 +1,5 @@
 import ImageCarousel from "./ImageCarousel";
+import { useFilteredProperties } from "./Providers";
 
 export default function PropertyCard({
   images,
@@ -9,10 +10,10 @@ export default function PropertyCard({
   city: string;
   price: number;
 }) {
-  const formattedPrice = price.toLocaleString();
   const averageRent = 2000;
-  const deposit = 0.1;
-  const timespan = Math.ceil((price * deposit) / averageRent);
+  const { depositValue } = useFilteredProperties();
+  const timespan = Math.ceil((price * (depositValue / 100)) / averageRent);
+  const formattedPrice = price.toLocaleString();
 
   return (
     <div className="card w-96 bg-base-100 shadow-md">

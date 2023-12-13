@@ -7,10 +7,17 @@ import { createContext, ReactNode, useContext, useState } from "react";
 export function Providers({ children }: { children: ReactNode }) {
   const defaultProperties = useProperties();
   const [properties, setProperties] = useState(defaultProperties);
+  const [depositValue, setDepositValue] = useState<number>(1);
 
   return (
     <PropertiesContext.Provider
-      value={{ defaultProperties, properties, setProperties }}
+      value={{
+        defaultProperties,
+        depositValue,
+        setDepositValue,
+        properties,
+        setProperties,
+      }}
     >
       {children}
     </PropertiesContext.Provider>
@@ -19,6 +26,8 @@ export function Providers({ children }: { children: ReactNode }) {
 
 type PropertiesContextType = {
   defaultProperties: Property[];
+  depositValue: number;
+  setDepositValue: React.Dispatch<React.SetStateAction<number>>;
   properties: Property[];
   setProperties: React.Dispatch<React.SetStateAction<Property[]>>;
 };

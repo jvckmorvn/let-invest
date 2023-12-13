@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useFilteredProperties } from "./Providers";
 import { PriceRange } from "@/types";
 
@@ -14,14 +14,15 @@ export default function NavbarInputs() {
     { label: "£500,000+", min: 500_000, max: 599_999 },
   ];
   const cities = ["Belfast", "London", "Manchester"];
+  const recoupOptions = ["Deposit", "Principal"];
 
-  const { setProperties, defaultProperties } = useFilteredProperties();
+  const { depositValue, setDepositValue, setProperties, defaultProperties } =
+    useFilteredProperties();
 
   const [checkedCities, setCheckedCities] = useState<string[]>([]);
   const [checkedPriceRanges, setCheckedPriceRanges] = useState<PriceRange[]>(
     []
   );
-  const [depositValue, setDepositValue] = useState<number>(1);
 
   function handleCityChange(city: string) {
     const selectedCities = toggleCheckbox(city, checkedCities);
@@ -77,13 +78,33 @@ export default function NavbarInputs() {
     );
   }
 
-  // function handleDepositChange() {
-  //   updateFilteredProperties(checkedCities, checkedPriceRanges, depositValue);
-  // }
+  function handleDepositChange(e: ChangeEvent<HTMLInputElement>) {
+    const depositPercentage = parseInt(e.target.value);
+    setDepositValue(depositPercentage);
+  }
 
   return (
     <>
       <ul className="menu menu-horizontal px-1">
+        <li>
+          <details>
+            <summary>How long to recoup</summary>
+            <ul className="p-2">
+              {recoupOptions.map((recoupOption, index) => (
+                <li key={index}>
+                  <label className="form-control justify-between cursor-pointer">
+                    <span className="label-text">{recoupOption}</span>
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-xs"
+                      onChange={() => handleCityChange(recoupOption)}
+                    />
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </li>
         <li>
           <details>
             <summary>City</summary>
@@ -133,7 +154,7 @@ export default function NavbarInputs() {
             max="30"
             className="range range-sm"
             value={depositValue}
-            onChange={(e) => setDepositValue(parseInt(e.target.value))}
+            onChange={(e) => handleDepositChange(e)}
           />
         </li>
       </ul>
