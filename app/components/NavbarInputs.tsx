@@ -14,7 +14,7 @@ export default function NavbarInputs() {
     { label: "£500,000+", min: 500_000, max: 599_999 },
   ];
   const cities = ["Belfast", "London", "Manchester"];
-  const recoupOptions = ["Deposit", "Principal"];
+  const recoupOptions = ["Deposit", "Principal", "Both"];
 
   const { depositValue, setDepositValue, setProperties, defaultProperties } =
     useFilteredProperties();
@@ -83,6 +83,10 @@ export default function NavbarInputs() {
     setDepositValue(depositPercentage);
   }
 
+  function handleRadioChange(radioOption: string) {
+    console.log(radioOption);
+  }
+
   return (
     <>
       <ul className="menu menu-horizontal px-1">
@@ -95,9 +99,10 @@ export default function NavbarInputs() {
                   <label className="form-control justify-between cursor-pointer">
                     <span className="label-text">{recoupOption}</span>
                     <input
-                      type="checkbox"
-                      className="checkbox checkbox-xs"
-                      onChange={() => handleCityChange(recoupOption)}
+                      type="radio"
+                      name="radio"
+                      className="radio radio-sm"
+                      onChange={() => handleRadioChange(recoupOption)}
                     />
                   </label>
                 </li>
