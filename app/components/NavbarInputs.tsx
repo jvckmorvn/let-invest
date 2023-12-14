@@ -91,11 +91,16 @@ export default function NavbarInputs() {
 
   return (
     <>
-      <ul className="menu menu-horizontal px-1">
+      <ul className="menu menu-horizontal">
         <li>
-          <details>
-            <summary>How long to recoup</summary>
-            <ul className="p-2">
+          <div className="dropdown dropdown-bottom dropdown-end">
+            <div tabIndex={0} role="button" className="btn">
+              How long to recoup
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52"
+            >
               {recoupOptions.map((option, index) => (
                 <li key={index}>
                   <label className="form-control justify-between cursor-pointer">
@@ -111,12 +116,17 @@ export default function NavbarInputs() {
                 </li>
               ))}
             </ul>
-          </details>
+          </div>
         </li>
         <li>
-          <details>
-            <summary>City</summary>
-            <ul className="p-2">
+          <div className="dropdown dropdown-bottom dropdown-end">
+            <div tabIndex={0} role="button" className="btn">
+              City
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52"
+            >
               {cities.map((city, index) => (
                 <li key={index}>
                   <label className="form-control justify-between cursor-pointer">
@@ -130,12 +140,17 @@ export default function NavbarInputs() {
                 </li>
               ))}
             </ul>
-          </details>
+          </div>
         </li>
         <li>
-          <details>
-            <summary>Price</summary>
-            <ul className="p-2">
+          <div className="dropdown dropdown-bottom dropdown-end">
+            <div tabIndex={0} role="button" className="btn">
+              Price
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52"
+            >
               {priceRanges.map(({ label }, index) => (
                 <li key={index}>
                   <label className="form-control justify-between cursor-pointer">
@@ -149,13 +164,13 @@ export default function NavbarInputs() {
                 </li>
               ))}
             </ul>
-          </details>
+          </div>
         </li>
         <li
           style={
             recoupOption === "Both"
-              ? { opacity: 0.6, cursor: "not-allowed" }
-              : {}
+              ? { opacity: 0.6, cursor: "not-allowed", marginLeft: 20 }
+              : { marginLeft: 20 }
           }
         >
           <label htmlFor="deposit" className="label">
