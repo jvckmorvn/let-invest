@@ -7,8 +7,8 @@ import { createContext, ReactNode, useContext, useState } from "react";
 export function Providers({ children }: { children: ReactNode }) {
   const defaultProperties = useProperties();
 
-  const [properties, setProperties] = useState(defaultProperties);
-  const [depositPercentage, setdepositPercentage] = useState<number>(1);
+  const [properties, setProperties] = useState<Property[]>(defaultProperties);
+  const [depositPercentage, setDepositPercentage] = useState<number>(1);
   const [recoupOption, setRecoupOption] = useState<string>("Deposit");
 
   return (
@@ -16,7 +16,7 @@ export function Providers({ children }: { children: ReactNode }) {
       value={{
         defaultProperties,
         depositPercentage,
-        setdepositPercentage,
+        setDepositPercentage,
         properties,
         setProperties,
         recoupOption,
@@ -31,7 +31,7 @@ export function Providers({ children }: { children: ReactNode }) {
 type PropertiesContextType = {
   defaultProperties: Property[];
   depositPercentage: number;
-  setdepositPercentage: React.Dispatch<React.SetStateAction<number>>;
+  setDepositPercentage: React.Dispatch<React.SetStateAction<number>>;
   properties: Property[];
   setProperties: React.Dispatch<React.SetStateAction<Property[]>>;
   recoupOption: string;
