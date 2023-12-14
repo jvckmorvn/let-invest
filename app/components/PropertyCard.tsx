@@ -11,8 +11,18 @@ export default function PropertyCard({
   price: number;
 }) {
   const averageRent = 2000;
-  const { depositValue } = useFilteredProperties();
-  const timespan = Math.ceil((price * (depositValue / 100)) / averageRent);
+  const { depositPercentage, recoupOption } = useFilteredProperties();
+  const depositValue = price * (depositPercentage / 100);
+
+  let timespan;
+  if (recoupOption === "Deposit") {
+    timespan = Math.ceil(depositValue / averageRent);
+  } else if (recoupOption === "Principal") {
+    timespan = Math.ceil((price - depositValue) / averageRent);
+  } else {
+    timespan = Math.ceil(price / averageRent);
+  }
+
   const formattedPrice = price.toLocaleString();
 
   return (

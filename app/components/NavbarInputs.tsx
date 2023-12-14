@@ -16,8 +16,14 @@ export default function NavbarInputs() {
   const cities = ["Belfast", "London", "Manchester"];
   const recoupOptions = ["Deposit", "Principal", "Both"];
 
-  const { depositValue, setDepositValue, setProperties, defaultProperties } =
-    useFilteredProperties();
+  const {
+    depositPercentage,
+    setdepositPercentage,
+    setProperties,
+    defaultProperties,
+    recoupOption,
+    setRecoupOption,
+  } = useFilteredProperties();
 
   const [checkedCities, setCheckedCities] = useState<string[]>([]);
   const [checkedPriceRanges, setCheckedPriceRanges] = useState<PriceRange[]>(
@@ -80,11 +86,7 @@ export default function NavbarInputs() {
 
   function handleDepositChange(e: ChangeEvent<HTMLInputElement>) {
     const depositPercentage = parseInt(e.target.value);
-    setDepositValue(depositPercentage);
-  }
-
-  function handleRadioChange(radioOption: string) {
-    console.log(radioOption);
+    setdepositPercentage(depositPercentage);
   }
 
   return (
@@ -94,15 +96,16 @@ export default function NavbarInputs() {
           <details>
             <summary>How long to recoup</summary>
             <ul className="p-2">
-              {recoupOptions.map((recoupOption, index) => (
+              {recoupOptions.map((option, index) => (
                 <li key={index}>
                   <label className="form-control justify-between cursor-pointer">
-                    <span className="label-text">{recoupOption}</span>
+                    <span className="label-text">{option}</span>
                     <input
                       type="radio"
                       name="radio"
                       className="radio radio-sm"
-                      onChange={() => handleRadioChange(recoupOption)}
+                      checked={option === recoupOption}
+                      onChange={() => setRecoupOption(option)}
                     />
                   </label>
                 </li>
@@ -148,9 +151,15 @@ export default function NavbarInputs() {
             </ul>
           </details>
         </li>
-        <li>
+        <li
+          style={
+            recoupOption === "Both"
+              ? { opacity: 0.6, cursor: "not-allowed" }
+              : {}
+          }
+        >
           <label htmlFor="deposit" className="label">
-            <summary>Deposit: {depositValue}%</summary>
+            <summary>Deposit: {depositPercentage}%</summary>
           </label>
           <input
             type="range"
@@ -158,8 +167,9 @@ export default function NavbarInputs() {
             min="1"
             max="30"
             className="range range-sm"
-            value={depositValue}
+            value={depositPercentage}
             onChange={(e) => handleDepositChange(e)}
+            disabled={recoupOption === "Both"}
           />
         </li>
       </ul>
