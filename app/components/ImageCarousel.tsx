@@ -1,5 +1,3 @@
-"use client";
-
 export default function ImageCarousel({ images }: { images: string[] }) {
   const carouselId = images.map((image) => image.indexOf(image));
 

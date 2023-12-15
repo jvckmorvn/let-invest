@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useFilteredProperties } from "../Providers";
 import DepositSlider from "./DepositSlider";
 import PriceDropdown from "./PriceDropdown";
@@ -9,14 +9,8 @@ import RecoupDropdown from "./RecoupDropdown";
 import { PriceRange } from "@/types";
 
 export default function NavbarInputs() {
-  const {
-    depositPercentage,
-    setDepositPercentage,
-    setProperties,
-    defaultProperties,
-    recoupOption,
-    setRecoupOption,
-  } = useFilteredProperties();
+  const { setProperties, defaultProperties, recoupOption, setRecoupOption } =
+    useFilteredProperties();
   const [selectedPriceRanges, setSelectedPriceRanges] = useState<PriceRange[]>(
     []
   );
