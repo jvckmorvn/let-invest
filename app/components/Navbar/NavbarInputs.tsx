@@ -24,21 +24,6 @@ export default function NavbarInputs() {
     }));
   }
 
-  // function handleSelectPriceRange(selectedPriceRange: PriceRange) {
-  //   setNavbarInputs((prevNavbarInputs) => {
-  //     const updatedNavBarInputs = {
-  //       ...prevNavbarInputs,
-  //       priceRange: selectedPriceRange,
-  //     };
-
-  //     filterProperties(updatedNavBarInputs);
-
-  //     return updatedNavBarInputs;
-  //   });
-
-  //   filterProperties;
-  // }
-
   function handleSelectPriceRange(selectedPriceRange: PriceRange) {
     setNavbarInputs((prevNavbarInputs) => {
       const updatedNavBarInputs = {
