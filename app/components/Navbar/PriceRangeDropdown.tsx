@@ -1,10 +1,14 @@
 import { PriceRange } from "@/app/utils/types";
 
 interface Props {
+  selectedPriceRanges: PriceRange[];
   onSelectPriceRange: (priceRange: PriceRange) => void;
 }
 
-export default function PriceRangeDropdown({ onSelectPriceRange }: Props) {
+export default function PriceRangeDropdown({
+  selectedPriceRanges,
+  onSelectPriceRange,
+}: Props) {
   const priceRanges = [
     { label: "Less than £100,000", min: 0, max: 99_999 },
     { label: "£100,000 - 199,999", min: 100_000, max: 199_999 },
@@ -19,7 +23,12 @@ export default function PriceRangeDropdown({ onSelectPriceRange }: Props) {
       <ul className="menu lg:menu-horizontal bg-base-200 rounded-box lg:mb-64">
         <li>
           <details>
-            <summary>{"Any price"}</summary>
+            <summary>
+              Price range
+              {selectedPriceRanges.length > 0 && (
+                <span className="badge badge-xs badge-neutral"></span>
+              )}
+            </summary>
             <ul>
               {priceRanges.map((priceRange) => (
                 <li key={priceRange.min}>

@@ -11,6 +11,7 @@ import { useFilteredProperties } from "@/app/hooks/useFilteredProperties";
 
 export default function NavbarInputs() {
   const { navbarInputs, setNavbarInputs } = useNavbarInputs();
+  const { recoupOption, priceRanges, cities, depositPercentage } = navbarInputs;
   const { filterProperties } = useFilteredProperties();
   const [selectedPriceRanges, setSelectedPriceRanges] = useState<PriceRange[]>(
     []
@@ -82,17 +83,17 @@ export default function NavbarInputs() {
   return (
     <ul className="menu menu-horizontal">
       <RecoupDropdown
-        selectedRecoupOption={navbarInputs.recoupOption}
+        selectedRecoupOption={recoupOption}
         onSelectRecoupOption={handleSelectRecoupOption}
       />
-      <PriceRangeDropdown onSelectPriceRange={handleSelectPriceRange} />
-      <CityDropdown
-        selectedCities={navbarInputs.cities}
-        onSelectCity={handleSelectCity}
+      <PriceRangeDropdown
+        selectedPriceRanges={priceRanges}
+        onSelectPriceRange={handleSelectPriceRange}
       />
+      <CityDropdown selectedCities={cities} onSelectCity={handleSelectCity} />
       <DepositSlider
-        disabled={navbarInputs.recoupOption === "Both"}
-        defaultDepositPercentage={navbarInputs.depositPercentage}
+        disabled={recoupOption === "Both"}
+        defaultDepositPercentage={depositPercentage}
         onChangeDeposit={handleChangeDeposit}
       />
     </ul>
