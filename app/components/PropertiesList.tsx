@@ -1,4 +1,4 @@
-import { Property } from "@/types";
+import { Property } from "@/app/utils/types";
 import PropertyCard from "./PropertyCard";
 
 export default function PropertiesList({

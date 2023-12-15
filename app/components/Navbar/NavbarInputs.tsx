@@ -1,15 +1,17 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import { useNavbarInputs } from "../Providers";
 import DepositSlider from "./DepositSlider";
-import PriceDropdown from "./PriceDropdown";
+import PriceRangeDropdown from "./PriceRangeDropdown";
 import CityDropdown from "./CityDropdown";
 import RecoupDropdown from "./RecoupDropdown";
-import { PriceRange } from "@/types";
+import { PriceRange } from "@/app/utils/types";
+import { useNavbarInputs } from "../contexts/NavbarInputsProvider";
+import { useFilteredProperties } from "../contexts/FilteredPropertiesProvider";
 
 export default function NavbarInputs() {
-  const { navbarInputs, setNavbarInputs, filterProperties } = useNavbarInputs();
+  const { navbarInputs, setNavbarInputs } = useNavbarInputs();
+  const { filterProperties } = useFilteredProperties();
   const [selectedPriceRanges, setSelectedPriceRanges] = useState<PriceRange[]>(
     []
   );
@@ -84,7 +86,7 @@ export default function NavbarInputs() {
           defaultRecoupOption={navbarInputs.recoupOption}
           onSelectRecoupOption={handleSelectRecoupOption}
         />
-        <PriceDropdown onSelectPriceRange={handleSelectPriceRange} />
+        <PriceRangeDropdown onSelectPriceRange={handleSelectPriceRange} />
         <CityDropdown onSelectCity={handleSelectCity} />
         <DepositSlider
           disabled={navbarInputs.recoupOption === "Both"}

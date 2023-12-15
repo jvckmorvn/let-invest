@@ -1,19 +1,26 @@
 "use client";
 
-import useProperties from "@/hooks/useProperties";
-import { NavbarInputs, Property } from "@/types";
 import { createContext, ReactNode, useContext, useState } from "react";
+import { Property, NavbarInputs } from "@/app/utils/types";
+import useProperties from "@/app/hooks/useProperties";
 
-export function Providers({ children }: { children: ReactNode }) {
+type FilteredPropertiesContextType = {
+  properties: Property[];
+  filterProperties: ({ priceRanges, cities }: NavbarInputs) => void;
+};
+
+const FilteredPropertiesContext = createContext<FilteredPropertiesContextType>({
+  properties: [],
+  filterProperties: () => [],
+});
+
+export function FilteredPropertiesProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const defaultProperties = useProperties();
   const [properties, setProperties] = useState<Property[]>(defaultProperties);
-
-  const [navbarInputs, setNavbarInputs] = useState<NavbarInputs>({
-    recoupOption: "Deposit",
-    priceRanges: [],
-    cities: [],
-    depositPercentage: 1,
-  });
 
   function filterProperties({ priceRanges, cities }: NavbarInputs) {
     if (cities.length === 0 && priceRanges.length === 0) {
@@ -46,34 +53,18 @@ export function Providers({ children }: { children: ReactNode }) {
   }
 
   return (
-    <NavbarContext.Provider
+    <FilteredPropertiesContext.Provider
       value={{
         properties,
         filterProperties,
-        navbarInputs,
-        setNavbarInputs,
       }}
     >
       {children}
-    </NavbarContext.Provider>
+    </FilteredPropertiesContext.Provider>
   );
 }
 
-type NavbarContextType = {
-  properties: Property[];
-  navbarInputs: NavbarInputs;
-  setNavbarInputs: React.Dispatch<React.SetStateAction<NavbarInputs>>;
-  filterProperties: ({ priceRanges, cities }: NavbarInputs) => void;
-};
-
-const NavbarContext = createContext<NavbarContextType | undefined>(undefined);
-
-export function useNavbarInputs() {
-  const context = useContext(NavbarContext);
-
-  if (!context) {
-    throw new Error("useMessage must be used within a PropertiesProvider");
-  }
-
+export function useFilteredProperties() {
+  const context = useContext(FilteredPropertiesContext);
   return context;
 }

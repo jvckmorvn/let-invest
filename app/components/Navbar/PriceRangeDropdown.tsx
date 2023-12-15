@@ -1,10 +1,10 @@
-import { PriceRange } from "@/types";
+import { PriceRange } from "@/app/utils/types";
 
 interface Props {
   onSelectPriceRange: (priceRange: PriceRange) => void;
 }
 
-export default function PriceDropdown({ onSelectPriceRange }: Props) {
+export default function PriceRangeDropdown({ onSelectPriceRange }: Props) {
   const priceRanges = [
     { label: "Less than £100,000", min: 0, max: 99_999 },
     { label: "£100,000 - 199,999", min: 100_000, max: 199_999 },

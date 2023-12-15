@@ -1,5 +1,5 @@
 import ImageCarousel from "./ImageCarousel";
-import { useNavbarInputs } from "./Providers";
+import { useNavbarInputs } from "./contexts/NavbarInputsProvider";
 
 export default function PropertyCard({
   images,
