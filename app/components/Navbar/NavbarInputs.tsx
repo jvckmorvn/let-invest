@@ -6,8 +6,8 @@ import PriceRangeDropdown from "./PriceRangeDropdown";
 import CityDropdown from "./CityDropdown";
 import RecoupDropdown from "./RecoupDropdown";
 import { PriceRange } from "@/app/utils/types";
-import { useNavbarInputs } from "../contexts/NavbarInputsProvider";
-import { useFilteredProperties } from "../contexts/FilteredPropertiesProvider";
+import { useNavbarInputs } from "../../contexts/NavbarInputsProvider";
+import { useFilteredProperties } from "../../contexts/FilteredPropertiesProvider";
 
 export default function NavbarInputs() {
   const { navbarInputs, setNavbarInputs } = useNavbarInputs();
