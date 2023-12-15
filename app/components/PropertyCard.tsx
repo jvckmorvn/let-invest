@@ -33,7 +33,7 @@ export default function PropertyCard({
       <div className="card-body">
         <h2 className="card-title">
           {timespan} months
-          {timespan < 18 && <div className="badge badge-secondary">QUICK</div>}
+          {timespan < 18 && <div className="badge badge-accent">QUICK</div>}
         </h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div className="card-actions justify-end">

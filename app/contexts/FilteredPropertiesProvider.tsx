@@ -4,7 +4,7 @@ import useProperties from "@/app/hooks/useProperties";
 
 type FilteredPropertiesContextType = {
   properties: Property[];
-  filterProperties: ({ priceRanges, cities }: NavbarInputs) => void;
+  filterProperties: ({ priceRange, cities }: NavbarInputs) => void;
 };
 
 export const FilteredPropertiesContext =
@@ -21,20 +21,16 @@ export function FilteredPropertiesProvider({
   const defaultProperties = useProperties();
   const [properties, setProperties] = useState<Property[]>(defaultProperties);
 
-  function filterProperties({ priceRanges, cities }: NavbarInputs) {
-    let filteredProperties = defaultProperties;
+  function filterProperties({ priceRange, cities }: NavbarInputs) {
+    let filteredProperties = defaultProperties.filter(
+      (property) =>
+        property.price >= priceRange.minPrice.value &&
+        property.price <= priceRange.maxPrice.value
+    );
 
     if (cities.length > 0) {
       filteredProperties = filteredProperties.filter((property) =>
         cities.includes(property.city)
-      );
-    }
-
-    if (priceRanges.length > 0) {
-      filteredProperties = filteredProperties.filter((property) =>
-        priceRanges.some(
-          (range) => property.price >= range.min && property.price <= range.max
-        )
       );
     }
 

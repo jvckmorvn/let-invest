@@ -11,11 +11,10 @@ import { useFilteredProperties } from "@/app/hooks/useFilteredProperties";
 
 export default function NavbarInputs() {
   const { navbarInputs, setNavbarInputs } = useNavbarInputs();
-  const { recoupOption, priceRanges, cities, depositPercentage } = navbarInputs;
+  const { recoupOption, priceRange, cities, depositPercentage } = navbarInputs;
   const { filterProperties } = useFilteredProperties();
-  const [selectedPriceRanges, setSelectedPriceRanges] = useState<PriceRange[]>(
-    []
-  );
+  const [selectedPriceRange, setSelectedPriceRange] =
+    useState<PriceRange>(priceRange);
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
 
   function handleSelectRecoupOption(selectedRecoupOption: string) {
@@ -25,31 +24,31 @@ export default function NavbarInputs() {
     }));
   }
 
+  // function handleSelectPriceRange(selectedPriceRange: PriceRange) {
+  //   setNavbarInputs((prevNavbarInputs) => {
+  //     const updatedNavBarInputs = {
+  //       ...prevNavbarInputs,
+  //       priceRange: selectedPriceRange,
+  //     };
+
+  //     filterProperties(updatedNavBarInputs);
+
+  //     return updatedNavBarInputs;
+  //   });
+
+  //   filterProperties;
+  // }
+
   function handleSelectPriceRange(selectedPriceRange: PriceRange) {
-    setSelectedPriceRanges((prevSelectedPriceRanges) => {
-      const rangeIndex = prevSelectedPriceRanges.findIndex(
-        (range) => range.label === selectedPriceRange.label
-      );
-
-      let checkedPriceRanges: PriceRange[];
-      if (rangeIndex !== -1) {
-        checkedPriceRanges = [...prevSelectedPriceRanges];
-        checkedPriceRanges.splice(rangeIndex, 1);
-      } else {
-        checkedPriceRanges = [...prevSelectedPriceRanges, selectedPriceRange];
-      }
-
-      setNavbarInputs((prevNavbarInputs) => ({
+    setNavbarInputs((prevNavbarInputs) => {
+      const updatedNavBarInputs = {
         ...prevNavbarInputs,
-        priceRanges: checkedPriceRanges,
-      }));
+        priceRange: selectedPriceRange,
+      };
 
-      filterProperties({
-        ...navbarInputs,
-        priceRanges: checkedPriceRanges,
-      });
+      filterProperties(updatedNavBarInputs);
 
-      return checkedPriceRanges;
+      return updatedNavBarInputs;
     });
   }
 
@@ -87,7 +86,7 @@ export default function NavbarInputs() {
         onSelectRecoupOption={handleSelectRecoupOption}
       />
       <PriceRangeDropdown
-        selectedPriceRanges={priceRanges}
+        selectedPriceRange={priceRange}
         onSelectPriceRange={handleSelectPriceRange}
       />
       <CityDropdown selectedCities={cities} onSelectCity={handleSelectCity} />

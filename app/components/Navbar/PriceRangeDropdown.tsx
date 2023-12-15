@@ -1,21 +1,27 @@
 import { PriceRange } from "@/app/utils/types";
+import PriceBoundaryDropdown from "./PriceBoundaryDropdown";
 
 interface Props {
-  selectedPriceRanges: PriceRange[];
+  selectedPriceRange: PriceRange;
   onSelectPriceRange: (priceRange: PriceRange) => void;
 }
 
 export default function PriceRangeDropdown({
-  selectedPriceRanges,
+  selectedPriceRange,
   onSelectPriceRange,
 }: Props) {
-  const priceRanges = [
-    { label: "Less than £100,000", min: 0, max: 99_999 },
-    { label: "£100,000 - 199,999", min: 100_000, max: 199_999 },
-    { label: "£200,000 - 299,999", min: 200_000, max: 299_999 },
-    { label: "£300,000 - 399,999", min: 300_000, max: 399_999 },
-    { label: "£400,000 - 499,999", min: 400_000, max: 499_999 },
-    { label: "£500,000+", min: 500_000, max: 599_999 },
+  const boundaryLabels = ["Min", "Max"];
+  const boundaryObjects = [
+    { label: "£100,000", value: 100_000 },
+    { label: "£200,000", value: 200_000 },
+    { label: "£300,000", value: 300_000 },
+    { label: "£400,000", value: 400_000 },
+    { label: "£500,000", value: 500_000 },
+  ];
+  const minPrices = [{ label: "No min", value: 0 }, ...boundaryObjects];
+  const maxPrices = [
+    { label: "No max", value: Number.POSITIVE_INFINITY },
+    ...boundaryObjects,
   ];
 
   return (
@@ -25,22 +31,21 @@ export default function PriceRangeDropdown({
           <details>
             <summary>
               Price range
-              {selectedPriceRanges.length > 0 && (
+              {(selectedPriceRange.minPrice.value > 0 ||
+                selectedPriceRange.maxPrice.value <
+                  Number.POSITIVE_INFINITY) && (
                 <span className="badge badge-xs badge-neutral"></span>
               )}
             </summary>
-            <ul>
-              {priceRanges.map((priceRange) => (
-                <li key={priceRange.min}>
-                  <label className="form-control justify-between cursor-pointer">
-                    <span className="label-text">{priceRange.label}</span>
-                    <input
-                      type="checkbox"
-                      className="checkbox checkbox-xs"
-                      onChange={() => onSelectPriceRange(priceRange)}
-                    />
-                  </label>
-                </li>
+            <ul className="menu menu-horizontal">
+              {boundaryLabels.map((boundary) => (
+                <PriceBoundaryDropdown
+                  key={boundary}
+                  limit={boundary}
+                  priceOptions={boundary === "Min" ? minPrices : maxPrices}
+                  selectedPriceRange={selectedPriceRange}
+                  onSelectPriceRange={onSelectPriceRange}
+                />
               ))}
             </ul>
           </details>

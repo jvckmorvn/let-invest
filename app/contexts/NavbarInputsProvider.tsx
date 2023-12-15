@@ -9,7 +9,10 @@ type NavbarInputsContextType = {
 export const NavbarInputsContext = createContext<NavbarInputsContextType>({
   navbarInputs: {
     recoupOption: "Deposit",
-    priceRanges: [],
+    priceRange: {
+      minPrice: { label: "No min", value: 0 },
+      maxPrice: { label: "No max", value: Number.POSITIVE_INFINITY },
+    },
     cities: [],
     depositPercentage: 1,
   },
@@ -19,7 +22,10 @@ export const NavbarInputsContext = createContext<NavbarInputsContextType>({
 export function NavbarInputsProvider({ children }: { children: ReactNode }) {
   const [navbarInputs, setNavbarInputs] = useState<NavbarInputs>({
     recoupOption: "Deposit",
-    priceRanges: [],
+    priceRange: {
+      minPrice: { label: "No min", value: 0 },
+      maxPrice: { label: "No max", value: Number.POSITIVE_INFINITY },
+    },
     cities: [],
     depositPercentage: 10,
   });

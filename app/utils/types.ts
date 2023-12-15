@@ -6,15 +6,19 @@ export type Property = {
   images: string[];
 };
 
-export type PriceRange = {
-  label: string;
-  min: number;
-  max: number;
-};
-
 export type NavbarInputs = {
   recoupOption: string;
-  priceRanges: PriceRange[];
+  priceRange: PriceRange;
   cities: string[];
   depositPercentage: number;
+};
+
+export type PriceRange = {
+  minPrice: PriceBoundary;
+  maxPrice: PriceBoundary;
+};
+
+export type PriceBoundary = {
+  label: string;
+  value: number;
 };
