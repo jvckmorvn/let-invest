@@ -1,10 +1,10 @@
 "use client";
 
-import { ChangeEvent, useMemo, useState } from "react";
-import DepositSlider from "./DepositSlider";
+import { ChangeEvent, useState } from "react";
+import RecoupDropdown from "./RecoupDropdown";
 import PriceRangeDropdown from "./PriceRangeDropdown";
 import CityDropdown from "./CityDropdown";
-import RecoupDropdown from "./RecoupDropdown";
+import DepositSlider from "./DepositSlider";
 import { PriceRange } from "@/app/utils/types";
 import { useNavbarInputs } from "@/app/hooks/useNavbarInputs";
 import { useFilteredProperties } from "@/app/hooks/useFilteredProperties";

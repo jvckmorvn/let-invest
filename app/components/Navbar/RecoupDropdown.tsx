@@ -3,24 +3,18 @@ interface Props {
   onSelectRecoupOption: (recoupOption: string) => void;
 }
 
-export default function RecoupDropdown({
+export default function RecoupDropdown2({
   selectedRecoupOption,
   onSelectRecoupOption,
 }: Props) {
   const recoupOptions = ["Deposit", "Principal", "Both"];
 
   return (
-    <li>
-      <div>
-        <label>Recoup</label>
-        <div className="dropdown dropdown-bottom dropdown-end">
-          <div tabIndex={0} role="button" className="btn">
-            {selectedRecoupOption}
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52"
-          >
+    <ul className="menu lg:menu-horizontal bg-base-200 rounded-box lg:mb-64">
+      <li>
+        <details>
+          <summary>{selectedRecoupOption}</summary>
+          <ul>
             {recoupOptions.map((option) => (
               <li key={option}>
                 <label className="form-control justify-between cursor-pointer">
@@ -36,8 +30,8 @@ export default function RecoupDropdown({
               </li>
             ))}
           </ul>
-        </div>
-      </div>
-    </li>
+        </details>
+      </li>
+    </ul>
   );
 }
