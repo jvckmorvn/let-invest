@@ -11,10 +11,13 @@ export default function RecoupDropdown2({
 
   return (
     <li>
-      <ul className="menu lg:menu-horizontal bg-base-200 rounded-box lg:mb-64">
+      <ul className="menu lg:menu-horizontal bg-base-200 rounded-box">
         <li>
           <details>
-            <summary>{selectedRecoupOption}</summary>
+            <summary>
+              Recoup
+              <span className="badge badge-xs badge-neutral"></span>
+            </summary>
             <ul>
               {recoupOptions.map((option) => (
                 <li key={option}>

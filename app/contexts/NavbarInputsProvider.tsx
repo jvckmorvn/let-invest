@@ -21,7 +21,7 @@ export function NavbarInputsProvider({ children }: { children: ReactNode }) {
     recoupOption: "Deposit",
     priceRanges: [],
     cities: [],
-    depositPercentage: 1,
+    depositPercentage: 10,
   });
 
   return (

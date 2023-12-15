@@ -8,7 +8,7 @@ export default function CityDropdown({ selectedCities, onSelectCity }: Props) {
 
   return (
     <li>
-      <ul className="menu lg:menu-horizontal bg-base-200 rounded-box lg:mb-64">
+      <ul className="menu lg:menu-horizontal bg-base-200 rounded-box">
         <li>
           <details>
             <summary>

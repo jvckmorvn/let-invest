@@ -22,7 +22,9 @@ export default function Navbar() {
             </svg>
           </div>
         </div>
-        <a className="btn btn-ghost text-xl">Zoopla Project</a>
+        <a href="/" className="btn btn-ghost text-xl">
+          Zoopla Project
+        </a>
       </div>
       <div className="navbar-end">
         <NavbarInputs />

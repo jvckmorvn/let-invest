@@ -18,8 +18,13 @@ export default function DepositSlider({
     <li
       style={
         disabled
-          ? { opacity: 0.6, cursor: "not-allowed", marginLeft: 20 }
-          : { marginLeft: 20 }
+          ? {
+              opacity: 0.6,
+              cursor: "not-allowed",
+              marginLeft: 20,
+              paddingTop: 6,
+            }
+          : { marginLeft: 20, paddingTop: 6 }
       }
     >
       <div>
@@ -34,7 +39,7 @@ export default function DepositSlider({
           onChange={(e) => onChangeDeposit(e)}
           disabled={disabled}
         />
-        <div className="font-bold">{navbarInputs.depositPercentage}%</div>
+        <span>{disabled ? "N/A" : `${navbarInputs.depositPercentage}%`}</span>
       </div>
     </li>
   );
