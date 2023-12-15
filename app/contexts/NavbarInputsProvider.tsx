@@ -1,6 +1,4 @@
-"use client";
-
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { NavbarInputs } from "@/app/utils/types";
 
 type NavbarInputsContextType = {
@@ -8,7 +6,7 @@ type NavbarInputsContextType = {
   setNavbarInputs: React.Dispatch<React.SetStateAction<NavbarInputs>>;
 };
 
-const NavbarInputsContext = createContext<NavbarInputsContextType>({
+export const NavbarInputsContext = createContext<NavbarInputsContextType>({
   navbarInputs: {
     recoupOption: "Deposit",
     priceRanges: [],
@@ -36,9 +34,4 @@ export function NavbarInputsProvider({ children }: { children: ReactNode }) {
       {children}
     </NavbarInputsContext.Provider>
   );
-}
-
-export function useNavbarInputs() {
-  const context = useContext(NavbarInputsContext);
-  return context;
 }

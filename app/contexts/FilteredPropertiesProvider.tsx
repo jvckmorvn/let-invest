@@ -1,6 +1,4 @@
-"use client";
-
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { Property, NavbarInputs } from "@/app/utils/types";
 import useProperties from "@/app/hooks/useProperties";
 
@@ -9,10 +7,11 @@ type FilteredPropertiesContextType = {
   filterProperties: ({ priceRanges, cities }: NavbarInputs) => void;
 };
 
-const FilteredPropertiesContext = createContext<FilteredPropertiesContextType>({
-  properties: [],
-  filterProperties: () => [],
-});
+export const FilteredPropertiesContext =
+  createContext<FilteredPropertiesContextType>({
+    properties: [],
+    filterProperties: () => [],
+  });
 
 export function FilteredPropertiesProvider({
   children,
@@ -23,33 +22,23 @@ export function FilteredPropertiesProvider({
   const [properties, setProperties] = useState<Property[]>(defaultProperties);
 
   function filterProperties({ priceRanges, cities }: NavbarInputs) {
-    if (cities.length === 0 && priceRanges.length === 0) {
-      setProperties(defaultProperties);
-    } else if (cities.length > 0 && priceRanges.length > 0) {
-      setProperties(
-        defaultProperties.filter(
-          (property) =>
-            cities.includes(property.city) &&
-            priceRanges.some(
-              (range) =>
-                property.price >= range.min && property.price <= range.max
-            )
-        )
+    let filteredProperties = defaultProperties;
+
+    if (cities.length > 0) {
+      filteredProperties = filteredProperties.filter((property) =>
+        cities.includes(property.city)
       );
-    } else if (cities.length > 0) {
-      setProperties(
-        defaultProperties.filter((property) => cities.includes(property.city))
-      );
-    } else {
-      setProperties(
-        defaultProperties.filter((property) =>
-          priceRanges.some(
-            (range) =>
-              property.price >= range.min && property.price <= range.max
-          )
+    }
+
+    if (priceRanges.length > 0) {
+      filteredProperties = filteredProperties.filter((property) =>
+        priceRanges.some(
+          (range) => property.price >= range.min && property.price <= range.max
         )
       );
     }
+
+    setProperties(filteredProperties);
   }
 
   return (
@@ -62,9 +51,4 @@ export function FilteredPropertiesProvider({
       {children}
     </FilteredPropertiesContext.Provider>
   );
-}
-
-export function useFilteredProperties() {
-  const context = useContext(FilteredPropertiesContext);
-  return context;
 }

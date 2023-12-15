@@ -1,7 +1,7 @@
 "use client";
 
 import PropertiesList from "./components/PropertiesList";
-import { useFilteredProperties } from "./contexts/FilteredPropertiesProvider";
+import { useFilteredProperties } from "./hooks/useFilteredProperties";
 
 export default function Home() {
   const { properties } = useFilteredProperties();

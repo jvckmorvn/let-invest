@@ -1,5 +1,5 @@
+import { useNavbarInputs } from "@/app/hooks/useNavbarInputs";
 import { ChangeEvent } from "react";
-import { useNavbarInputs } from "../../contexts/NavbarInputsProvider";
 
 interface Props {
   disabled: boolean;
