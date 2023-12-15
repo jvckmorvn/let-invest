@@ -5,40 +5,35 @@ interface Props {
 
 export default function CityDropdown({ selectedCities, onSelectCity }: Props) {
   const cities = ["Belfast", "London", "Manchester"];
-  const dropdownLabel =
-    selectedCities.length > 1
-      ? `${selectedCities[0]}, ...`
-      : selectedCities.length === 1
-      ? selectedCities[0]
-      : "Any city";
 
   return (
     <li>
-      <div>
-        <label>City</label>
-        <div className="dropdown dropdown-bottom dropdown-end">
-          <div tabIndex={0} role="button" className="btn">
-            {dropdownLabel}
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box"
-          >
-            {cities.map((city) => (
-              <li key={city}>
-                <label className="form-control justify-between cursor-pointer">
-                  <span className="label-text">{city}</span>
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-xs"
-                    onChange={() => onSelectCity(city)}
-                  />
-                </label>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <ul className="menu lg:menu-horizontal bg-base-200 rounded-box lg:mb-64">
+        <li>
+          <details>
+            <summary>
+              City
+              {selectedCities.length > 0 && (
+                <span className="badge badge-xs badge-neutral"></span>
+              )}
+            </summary>
+            <ul>
+              {cities.map((city) => (
+                <li key={city}>
+                  <label className="form-control justify-between cursor-pointer">
+                    <span className="label-text">{city}</span>
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-xs"
+                      onChange={() => onSelectCity(city)}
+                    />
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </li>
+      </ul>
     </li>
   );
 }
