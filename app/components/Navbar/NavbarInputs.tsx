@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import DepositSlider from "./DepositSlider";
 import PriceRangeDropdown from "./PriceRangeDropdown";
 import CityDropdown from "./CityDropdown";
@@ -83,7 +83,7 @@ export default function NavbarInputs() {
     <>
       <ul className="menu menu-horizontal">
         <RecoupDropdown
-          defaultRecoupOption={navbarInputs.recoupOption}
+          selectedRecoupOption={navbarInputs.recoupOption}
           onSelectRecoupOption={handleSelectRecoupOption}
         />
         <PriceRangeDropdown onSelectPriceRange={handleSelectPriceRange} />
