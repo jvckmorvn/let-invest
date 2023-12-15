@@ -22,7 +22,7 @@ export default function CityDropdown({ selectedCities, onSelectCity }: Props) {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52"
+            className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box"
           >
             {cities.map((city) => (
               <li key={city}>

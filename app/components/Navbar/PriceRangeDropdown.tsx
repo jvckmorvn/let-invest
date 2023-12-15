@@ -16,27 +16,30 @@ export default function PriceRangeDropdown({ onSelectPriceRange }: Props) {
 
   return (
     <li>
-      <div className="dropdown dropdown-bottom dropdown-end">
-        <div tabIndex={0} role="button" className="btn">
-          Price
+      <div>
+        <label>Price</label>
+        <div className="dropdown dropdown-bottom dropdown-end">
+          <div tabIndex={0} role="button" className="btn">
+            Any Price
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52"
+          >
+            {priceRanges.map((priceRange) => (
+              <li key={priceRange.min}>
+                <label className="form-control justify-between cursor-pointer">
+                  <span className="label-text">{priceRange.label}</span>
+                  <input
+                    type="checkbox"
+                    className="checkbox checkbox-xs"
+                    onChange={() => onSelectPriceRange(priceRange)}
+                  />
+                </label>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul
-          tabIndex={0}
-          className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-52"
-        >
-          {priceRanges.map((priceRange) => (
-            <li key={priceRange.min}>
-              <label className="form-control justify-between cursor-pointer">
-                <span className="label-text">{priceRange.label}</span>
-                <input
-                  type="checkbox"
-                  className="checkbox checkbox-xs"
-                  onChange={() => onSelectPriceRange(priceRange)}
-                />
-              </label>
-            </li>
-          ))}
-        </ul>
       </div>
     </li>
   );

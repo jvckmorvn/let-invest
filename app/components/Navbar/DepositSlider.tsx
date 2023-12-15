@@ -22,19 +22,20 @@ export default function DepositSlider({
           : { marginLeft: 20 }
       }
     >
-      <label htmlFor="deposit" className="label">
-        <summary>Deposit: {navbarInputs.depositPercentage}%</summary>
-      </label>
-      <input
-        type="range"
-        id="deposit"
-        min="1"
-        max="30"
-        className="range range-sm"
-        value={defaultDepositPercentage}
-        onChange={(e) => onChangeDeposit(e)}
-        disabled={disabled}
-      />
+      <div>
+        <label>Deposit</label>
+        <input
+          type="range"
+          id="deposit"
+          min="1"
+          max="30"
+          className="range range-sm"
+          value={defaultDepositPercentage}
+          onChange={(e) => onChangeDeposit(e)}
+          disabled={disabled}
+        />
+        <div className="font-bold">{navbarInputs.depositPercentage}%</div>
+      </div>
     </li>
   );
 }

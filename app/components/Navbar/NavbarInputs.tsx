@@ -80,23 +80,21 @@ export default function NavbarInputs() {
   }
 
   return (
-    <>
-      <ul className="menu menu-horizontal">
-        <RecoupDropdown
-          selectedRecoupOption={navbarInputs.recoupOption}
-          onSelectRecoupOption={handleSelectRecoupOption}
-        />
-        <PriceRangeDropdown onSelectPriceRange={handleSelectPriceRange} />
-        <CityDropdown
-          selectedCities={navbarInputs.cities}
-          onSelectCity={handleSelectCity}
-        />
-        <DepositSlider
-          disabled={navbarInputs.recoupOption === "Both"}
-          defaultDepositPercentage={navbarInputs.depositPercentage}
-          onChangeDeposit={handleChangeDeposit}
-        />
-      </ul>
-    </>
+    <ul className="menu menu-horizontal">
+      <RecoupDropdown
+        selectedRecoupOption={navbarInputs.recoupOption}
+        onSelectRecoupOption={handleSelectRecoupOption}
+      />
+      <PriceRangeDropdown onSelectPriceRange={handleSelectPriceRange} />
+      <CityDropdown
+        selectedCities={navbarInputs.cities}
+        onSelectCity={handleSelectCity}
+      />
+      <DepositSlider
+        disabled={navbarInputs.recoupOption === "Both"}
+        defaultDepositPercentage={navbarInputs.depositPercentage}
+        onChangeDeposit={handleChangeDeposit}
+      />
+    </ul>
   );
 }
