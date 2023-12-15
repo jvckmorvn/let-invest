@@ -1,28 +1,29 @@
 import { ChangeEvent } from "react";
-import { useFilteredProperties } from "../Providers";
+import { useNavbarInputs } from "../Providers";
 
 interface Props {
-  recoupOption: string;
+  disabled: boolean;
+  defaultDepositPercentage: number;
+  onChangeDeposit: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function DepositSlider({ recoupOption }: Props) {
-  const { depositPercentage, setDepositPercentage } = useFilteredProperties();
-
-  function handleDepositChange(e: ChangeEvent<HTMLInputElement>) {
-    const depositPercentage = parseInt(e.target.value);
-    setDepositPercentage(depositPercentage);
-  }
+export default function DepositSlider({
+  disabled,
+  defaultDepositPercentage,
+  onChangeDeposit,
+}: Props) {
+  const { navbarInputs } = useNavbarInputs();
 
   return (
     <li
       style={
-        recoupOption === "Both"
+        disabled
           ? { opacity: 0.6, cursor: "not-allowed", marginLeft: 20 }
           : { marginLeft: 20 }
       }
     >
       <label htmlFor="deposit" className="label">
-        <summary>Deposit: {depositPercentage}%</summary>
+        <summary>Deposit: {navbarInputs.depositPercentage}%</summary>
       </label>
       <input
         type="range"
@@ -30,9 +31,9 @@ export default function DepositSlider({ recoupOption }: Props) {
         min="1"
         max="30"
         className="range range-sm"
-        value={depositPercentage}
-        onChange={(e) => handleDepositChange(e)}
-        disabled={recoupOption === "Both"}
+        value={defaultDepositPercentage}
+        onChange={(e) => onChangeDeposit(e)}
+        disabled={disabled}
       />
     </li>
   );

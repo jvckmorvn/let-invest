@@ -1,5 +1,5 @@
 import ImageCarousel from "./ImageCarousel";
-import { useFilteredProperties } from "./Providers";
+import { useNavbarInputs } from "./Providers";
 
 export default function PropertyCard({
   images,
@@ -11,13 +11,13 @@ export default function PropertyCard({
   price: number;
 }) {
   const averageRent = 2000;
-  const { depositPercentage, recoupOption } = useFilteredProperties();
-  const depositValue = price * (depositPercentage / 100);
+  const { navbarInputs } = useNavbarInputs();
+  const depositValue = price * (navbarInputs.depositPercentage / 100);
 
   let timespan;
-  if (recoupOption === "Deposit") {
+  if (navbarInputs.recoupOption === "Deposit") {
     timespan = Math.ceil(depositValue / averageRent);
-  } else if (recoupOption === "Principal") {
+  } else if (navbarInputs.recoupOption === "Principal") {
     timespan = Math.ceil((price - depositValue) / averageRent);
   } else {
     timespan = Math.ceil(price / averageRent);

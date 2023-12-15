@@ -11,3 +11,10 @@ export type PriceRange = {
   min: number;
   max: number;
 };
+
+export type NavbarInputs = {
+  recoupOption: string;
+  priceRanges: PriceRange[];
+  cities: string[];
+  depositPercentage: number;
+};

@@ -1,11 +1,11 @@
-"use client";
-
+import { Property } from "@/types";
 import PropertyCard from "./PropertyCard";
-import { useFilteredProperties } from "./Providers";
 
-export default function PropertiesList() {
-  const { properties } = useFilteredProperties();
-
+export default function PropertiesList({
+  properties,
+}: {
+  properties: Property[];
+}) {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
       {properties.map(({ images, city, price }) => (

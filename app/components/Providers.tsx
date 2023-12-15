@@ -1,49 +1,75 @@
 "use client";
 
 import useProperties from "@/hooks/useProperties";
-import { Property } from "@/types";
+import { NavbarInputs, Property } from "@/types";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 export function Providers({ children }: { children: ReactNode }) {
   const defaultProperties = useProperties();
-
   const [properties, setProperties] = useState<Property[]>(defaultProperties);
-  const [depositPercentage, setDepositPercentage] = useState<number>(1);
-  const [recoupOption, setRecoupOption] = useState<string>("Deposit");
+
+  const [navbarInputs, setNavbarInputs] = useState<NavbarInputs>({
+    recoupOption: "Deposit",
+    priceRanges: [],
+    cities: [],
+    depositPercentage: 1,
+  });
+
+  function filterProperties({ priceRanges, cities }: NavbarInputs) {
+    if (cities.length === 0 && priceRanges.length === 0) {
+      setProperties(defaultProperties);
+    } else if (cities.length > 0 && priceRanges.length > 0) {
+      setProperties(
+        defaultProperties.filter(
+          (property) =>
+            cities.includes(property.city) &&
+            priceRanges.some(
+              (range) =>
+                property.price >= range.min && property.price <= range.max
+            )
+        )
+      );
+    } else if (cities.length > 0) {
+      setProperties(
+        defaultProperties.filter((property) => cities.includes(property.city))
+      );
+    } else {
+      setProperties(
+        defaultProperties.filter((property) =>
+          priceRanges.some(
+            (range) =>
+              property.price >= range.min && property.price <= range.max
+          )
+        )
+      );
+    }
+  }
 
   return (
-    <PropertiesContext.Provider
+    <NavbarContext.Provider
       value={{
-        defaultProperties,
-        depositPercentage,
-        setDepositPercentage,
         properties,
-        setProperties,
-        recoupOption,
-        setRecoupOption,
+        filterProperties,
+        navbarInputs,
+        setNavbarInputs,
       }}
     >
       {children}
-    </PropertiesContext.Provider>
+    </NavbarContext.Provider>
   );
 }
 
-type PropertiesContextType = {
-  defaultProperties: Property[];
-  depositPercentage: number;
-  setDepositPercentage: React.Dispatch<React.SetStateAction<number>>;
+type NavbarContextType = {
   properties: Property[];
-  setProperties: React.Dispatch<React.SetStateAction<Property[]>>;
-  recoupOption: string;
-  setRecoupOption: React.Dispatch<React.SetStateAction<string>>;
+  navbarInputs: NavbarInputs;
+  setNavbarInputs: React.Dispatch<React.SetStateAction<NavbarInputs>>;
+  filterProperties: ({ priceRanges, cities }: NavbarInputs) => void;
 };
 
-const PropertiesContext = createContext<PropertiesContextType | undefined>(
-  undefined
-);
+const NavbarContext = createContext<NavbarContextType | undefined>(undefined);
 
-export function useFilteredProperties() {
-  const context = useContext(PropertiesContext);
+export function useNavbarInputs() {
+  const context = useContext(NavbarContext);
 
   if (!context) {
     throw new Error("useMessage must be used within a PropertiesProvider");
