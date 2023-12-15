@@ -87,7 +87,10 @@ export default function NavbarInputs() {
           onSelectRecoupOption={handleSelectRecoupOption}
         />
         <PriceRangeDropdown onSelectPriceRange={handleSelectPriceRange} />
-        <CityDropdown onSelectCity={handleSelectCity} />
+        <CityDropdown
+          selectedCities={navbarInputs.cities}
+          onSelectCity={handleSelectCity}
+        />
         <DepositSlider
           disabled={navbarInputs.recoupOption === "Both"}
           defaultDepositPercentage={navbarInputs.depositPercentage}

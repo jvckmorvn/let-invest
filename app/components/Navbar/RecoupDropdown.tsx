@@ -11,8 +11,8 @@ export default function RecoupDropdown({
 
   return (
     <li>
-      <label>
-        Recoup
+      <div>
+        <label>Recoup</label>
         <div className="dropdown dropdown-bottom dropdown-end">
           <div tabIndex={0} role="button" className="btn">
             {selectedRecoupOption}
@@ -37,7 +37,7 @@ export default function RecoupDropdown({
             ))}
           </ul>
         </div>
-      </label>
+      </div>
     </li>
   );
 }
