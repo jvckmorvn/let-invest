@@ -21,10 +21,10 @@ export default function DepositSlider({
           ? {
               opacity: 0.6,
               cursor: "not-allowed",
-              marginLeft: 20,
+              marginLeft: 10,
               paddingTop: 6,
             }
-          : { marginLeft: 20, paddingTop: 6 }
+          : { marginLeft: 10, paddingTop: 6 }
       }
     >
       <div>

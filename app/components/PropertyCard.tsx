@@ -26,7 +26,7 @@ export default function PropertyCard({
   const formattedPrice = price.toLocaleString();
 
   return (
-    <div className="card w-96 bg-base-100 shadow-md">
+    <div className="card w-96 bg-base-100 shadow-md transition-transform transform hover:scale-105 hover:cursor-pointer">
       <figure>
         <ImageCarousel images={images} />
       </figure>
