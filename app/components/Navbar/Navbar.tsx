@@ -22,9 +22,9 @@ export default function Navbar() {
             </svg>
           </div>
         </div>
-        <div className="pl-2">
+        <div className="ml-2 overflow-hidden rounded">
           <a href="/">
-            <img src="/logo.png" alt="logo" height={100} width={100} />
+            <img src="/logo.png" alt="logo" height={80} width={80} />
           </a>
         </div>
       </div>
