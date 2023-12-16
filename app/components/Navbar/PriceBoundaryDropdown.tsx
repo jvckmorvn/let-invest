@@ -17,38 +17,40 @@ export default function PriceBoundaryDropdown({
     <li key={limit}>
       <details>
         <summary>{limit}</summary>
-        <ul>
-          {priceOptions.map((priceOption) => (
-            <li key={priceOption.label}>
-              <label className="form-control justify-between cursor-pointer">
-                <span className="label-text">{priceOption.label}</span>
-                <input
-                  type="radio"
-                  name={`${limit}-radio`}
-                  className="radio radio-sm"
-                  checked={
-                    priceOption.value ===
-                    (limit === "Min"
-                      ? selectedPriceRange.minPrice.value
-                      : selectedPriceRange.maxPrice.value)
-                  }
-                  onChange={() =>
-                    onSelectPriceRange({
-                      minPrice:
-                        limit === "Min"
-                          ? priceOption
-                          : selectedPriceRange.minPrice,
-                      maxPrice:
-                        limit === "Max"
-                          ? priceOption
-                          : selectedPriceRange.maxPrice,
-                    })
-                  }
-                />
-              </label>
-            </li>
-          ))}
-        </ul>
+        <button>
+          <ul>
+            {priceOptions.map((priceOption) => (
+              <li key={priceOption.label}>
+                <label className="form-control justify-between cursor-pointer">
+                  <span className="label-text">{priceOption.label}</span>
+                  <input
+                    type="radio"
+                    name={`${limit}-radio`}
+                    className="radio radio-sm"
+                    checked={
+                      priceOption.value ===
+                      (limit === "Min"
+                        ? selectedPriceRange.minPrice.value
+                        : selectedPriceRange.maxPrice.value)
+                    }
+                    onChange={() =>
+                      onSelectPriceRange({
+                        minPrice:
+                          limit === "Min"
+                            ? priceOption
+                            : selectedPriceRange.minPrice,
+                        maxPrice:
+                          limit === "Max"
+                            ? priceOption
+                            : selectedPriceRange.maxPrice,
+                      })
+                    }
+                  />
+                </label>
+              </li>
+            ))}
+          </ul>
+        </button>
       </details>
     </li>
   );
