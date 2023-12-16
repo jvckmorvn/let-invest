@@ -37,7 +37,7 @@ export default function PriceRangeDropdown({
                 <span className="badge badge-xs badge-neutral"></span>
               )}
             </summary>
-            <ul className="menu menu-horizontal">
+            <ul className="menu menu-horizontal w-44 flex justify-around">
               {boundaryLabels.map((boundary) => (
                 <PriceBoundaryDropdown
                   key={boundary}
