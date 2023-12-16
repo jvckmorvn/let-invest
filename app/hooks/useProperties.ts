@@ -1,7 +1,7 @@
 const properties = [
   {
     id: 1,
-    address: "",
+    address: "13 Loveless Street, Belfast, BT5 4JZ",
     city: "Belfast",
     price: 287_000,
     images: [
@@ -12,7 +12,7 @@ const properties = [
   },
   {
     id: 2,
-    address: "",
+    address: "127 Joy Avenue, Manchester, M1 9UU",
     city: "Manchester",
     price: 408_000,
     images: [
@@ -23,7 +23,7 @@ const properties = [
   },
   {
     id: 3,
-    address: "",
+    address: "6 Donne House, Stoke Newington, N16 5SA",
     city: "London",
     price: 557_000,
     images: [
@@ -34,7 +34,7 @@ const properties = [
   },
   {
     id: 4,
-    address: "",
+    address: "667 Box Tower, Canary Wharf, E7 4AT",
     city: "London",
     price: 438_000,
     images: [
@@ -45,7 +45,7 @@ const properties = [
   },
   {
     id: 5,
-    address: "",
+    address: "28 Wynchurch Road, BT9 7SJ",
     city: "Belfast",
     price: 388_000,
     images: [

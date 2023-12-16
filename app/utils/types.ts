@@ -13,6 +13,8 @@ export type NavbarInputs = {
   depositPercentage: number;
 };
 
+export type RecoupOption = "Deposit" | "Principal" | "Both";
+
 export type PriceRange = {
   minPrice: PriceBoundary;
   maxPrice: PriceBoundary;

@@ -1,6 +1,8 @@
+import { RecoupOption } from "@/app/utils/types";
+
 interface Props {
-  selectedRecoupOption: string;
-  onSelectRecoupOption: (recoupOption: string) => void;
+  selectedRecoupOption: RecoupOption;
+  onSelectRecoupOption: (recoupOption: RecoupOption) => void;
 }
 
 export default function RecoupDropdown2({
@@ -28,7 +30,9 @@ export default function RecoupDropdown2({
                       name="radio"
                       className="radio radio-sm"
                       checked={option === selectedRecoupOption}
-                      onChange={() => onSelectRecoupOption(option)}
+                      onChange={() =>
+                        onSelectRecoupOption(option as RecoupOption)
+                      }
                     />
                   </label>
                 </li>

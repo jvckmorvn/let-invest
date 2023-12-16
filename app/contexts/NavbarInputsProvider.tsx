@@ -6,29 +6,24 @@ type NavbarInputsContextType = {
   setNavbarInputs: React.Dispatch<React.SetStateAction<NavbarInputs>>;
 };
 
-export const NavbarInputsContext = createContext<NavbarInputsContextType>({
-  navbarInputs: {
-    recoupOption: "Deposit",
-    priceRange: {
-      minPrice: { label: "No min", value: 0 },
-      maxPrice: { label: "No max", value: Number.POSITIVE_INFINITY },
-    },
-    cities: [],
-    depositPercentage: 1,
+const defaultNavbarInputs = {
+  recoupOption: "Deposit",
+  priceRange: {
+    minPrice: { label: "No min", value: 0 },
+    maxPrice: { label: "No max", value: Number.POSITIVE_INFINITY },
   },
+  cities: [],
+  depositPercentage: 10,
+};
+
+export const NavbarInputsContext = createContext<NavbarInputsContextType>({
+  navbarInputs: defaultNavbarInputs,
   setNavbarInputs: () => {},
 });
 
 export function NavbarInputsProvider({ children }: { children: ReactNode }) {
-  const [navbarInputs, setNavbarInputs] = useState<NavbarInputs>({
-    recoupOption: "Deposit",
-    priceRange: {
-      minPrice: { label: "No min", value: 0 },
-      maxPrice: { label: "No max", value: Number.POSITIVE_INFINITY },
-    },
-    cities: [],
-    depositPercentage: 10,
-  });
+  const [navbarInputs, setNavbarInputs] =
+    useState<NavbarInputs>(defaultNavbarInputs);
 
   return (
     <NavbarInputsContext.Provider
