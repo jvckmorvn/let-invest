@@ -22,9 +22,11 @@ export default function Navbar() {
             </svg>
           </div>
         </div>
-        <a href="/" className="btn btn-ghost text-xl">
-          Zoopla Project
-        </a>
+        <div className="pl-2">
+          <a href="/">
+            <img src="/logo.png" alt="logo" height={100} width={100} />
+          </a>
+        </div>
       </div>
       <div className="navbar-end">
         <NavbarInputs />
