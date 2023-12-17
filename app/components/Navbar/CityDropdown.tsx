@@ -1,10 +1,12 @@
+import useCities from "@/app/hooks/useCities";
+
 interface Props {
   selectedCities: string[];
   onSelectCity: (city: string) => void;
 }
 
 export default function CityDropdown({ selectedCities, onSelectCity }: Props) {
-  const cities = ["Belfast", "London", "Manchester"];
+  const cities = useCities();
 
   return (
     <li>

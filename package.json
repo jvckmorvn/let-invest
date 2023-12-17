@@ -9,6 +9,7 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
+    "fakerator": "^0.3.6",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
